@@ -4,8 +4,8 @@ import cv2
 import numpy as np
 from PIL import Image
 
-# YOLOv10モデルの読み込み
-model = torch.hub.load('WongKinYiu/yolov10', 'yolov10s', trust_repo=True)
+# ローカルのYOLOv10モデルを読み込み
+model = torch.load("yolov10s.pt", map_location=torch.device("cpu"))
 model.eval()
 
 def detect_image(image):
@@ -21,7 +21,7 @@ app = gr.Interface(
     inputs=gr.Image(type="pil"),
     outputs=gr.Image(type="pil"),
     title="YOLOv10 物体検知アプリ",
-    description="画像をアップロードすると、YOLOv10で物体検出を行います"
+    description="ローカルのYOLOv10モデルを使って画像から物体検出します。"
 )
 
 if __name__ == "__main__":
